@@ -18,9 +18,15 @@ function drawPendulum(x, y) {
     ctx.fillRect(x*DIM,y*DIM,DIM*4, DIM*4);
 }
 
-var i = 0;
+var i = -50;
+var sign = false;
 window.setInterval(function(){
     "use strict";
+    if(Math.abs(i)==0 || Math.abs(i)==100)
+        sign = !sign;
     drawPendulum(100+Math.cos(i/100*Math.PI)*50, 100-Math.sin(i/100*Math.PI)*50);
-    i++;
+    if(sign)
+        i--;
+    else
+        i++;
 },100);
