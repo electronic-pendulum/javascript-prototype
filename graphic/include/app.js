@@ -2,7 +2,9 @@
  * Created by claudio on 18/12/16.
  */
 var DIM = 10;
-var INITIAL_POS =100;
+var INITIAL_POS = 100;
+var PERIOD = 100;
+
 function drawPendulum(x, y) {
     "use strict";
     var myCanvas = document.getElementById("myCanvas");
@@ -18,15 +20,18 @@ function drawPendulum(x, y) {
     ctx.fillRect(x*DIM,y*DIM,DIM*4, DIM*4);
 }
 
-var i = -50;
+var i = 0;
 var sign = false;
 window.setInterval(function(){
     "use strict";
-    if(Math.abs(i)==0 || Math.abs(i)==100)
-        sign = !sign;
-    drawPendulum(100+Math.cos(i/100*Math.PI)*50, 100-Math.sin(i/100*Math.PI)*50);
-    if(sign)
-        i--;
-    else
-        i++;
+    var angle = calculateAngle(i)/2 - Math.PI/2;
+    drawPendulum(100+Math.cos(angle)*50, 100-Math.sin(angle)*50);
+    console.log(i, angle);
+    i++;
 },100);
+
+
+function calculateAngle(time){
+    "use strict";
+    return Math.PI * Math.cos(2* Math.PI/PERIOD * time);
+}
