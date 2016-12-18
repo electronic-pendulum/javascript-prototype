@@ -66,7 +66,7 @@ var calculator = {
         if(x<this.previousXAcc)
         {
             if(!this.decrementingX) {
-                console.log('period', x, (time-this.zeroTime)*4);
+                console.log('period', x, (time-this.zeroTime-1)*4);
             }
             this.decrementingX = true;
             this.zeroTime = time;
