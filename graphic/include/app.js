@@ -67,7 +67,9 @@ var calculator = {
         if(x<this.previousXAcc)
         {
             if(!this.decrementingX) {
-                console.log('period', x, (time-this.zeroTime-1)*4);
+                var period = (time-this.zeroTime-1)*4;
+                console.log('period', period);
+                this.calculateL(period)
             }
             this.decrementingX = true;
             this.zeroTime = time;
@@ -75,5 +77,10 @@ var calculator = {
             this.decrementingX = false;
         }
         this.previousXAcc = x;
+    },
+    calculateL: function(period){
+        "use strict";
+        var l = (period/(2* Math.PI))^2*G;
+        console.log('l', l);
     }
 };
