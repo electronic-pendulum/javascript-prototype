@@ -23,14 +23,21 @@ function drawPendulum(x, y) {
 
 var i = 0;
 var sign = false;
+var stop = false;
 window.setInterval(function(){
     "use strict";
+    if(stop) return;
     var angle = calculateAngle(i)/2 - Math.PI/2;
     var acc = calculateAcc(angle);
     drawPendulum(100+Math.cos(angle)*50, 100-Math.sin(angle)*50);
     console.log(i, angle, acc);
     i++;
 },100);
+
+function stopStart(){
+    "use strict";
+    stop = !stop;
+}
 
 
 function calculateAngle(time){
