@@ -1,0 +1,19 @@
+{
+  "name": "javascript-prototype",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/electronic-pendulum/javascript-prototype.git"
+  },
+  "author": "Claudio Cardinale",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/electronic-pendulum/javascript-prototype/issues"
+  },
+  "homepage": "https://github.com/electronic-pendulum/javascript-prototype#readme"
+}
