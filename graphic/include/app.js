@@ -60,6 +60,7 @@ var calculator = {
         "use strict";
         //TODO do the same thing for y
         //TODO make a sort of avg
+        //TODO make the entire cycle
         //half period
         var x = Math.abs(acc.x);
         //console.log(x);
