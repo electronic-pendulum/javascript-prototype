@@ -4,6 +4,7 @@
 var DIM = 10;
 var INITIAL_POS = 100;
 var PERIOD = 100;
+var G = 9.81;
 
 function drawPendulum(x, y) {
     "use strict";
@@ -25,8 +26,9 @@ var sign = false;
 window.setInterval(function(){
     "use strict";
     var angle = calculateAngle(i)/2 - Math.PI/2;
+    var acc = calculateAcc(angle);
     drawPendulum(100+Math.cos(angle)*50, 100-Math.sin(angle)*50);
-    console.log(i, angle);
+    console.log(i, angle, acc);
     i++;
 },100);
 
@@ -34,4 +36,12 @@ window.setInterval(function(){
 function calculateAngle(time){
     "use strict";
     return Math.PI * Math.cos(2* Math.PI/PERIOD * time);
+}
+
+function calculateAcc(angle){
+    "use strict";
+    return {
+        x: G* Math.sin(angle),
+        y: G* Math.cos(angle),
+    }
 }
