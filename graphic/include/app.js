@@ -3,7 +3,7 @@
  */
 var DIM = 10;
 var INITIAL_POS = 100;
-var PERIOD = 100;
+var PERIOD = 200;
 var G = 9.81;
 
 function drawPendulum(x, y) {
@@ -22,7 +22,6 @@ function drawPendulum(x, y) {
 }
 
 var i = 0;
-var sign = false;
 var stop = false;
 window.setInterval(function(){
     "use strict";
@@ -30,7 +29,8 @@ window.setInterval(function(){
     var angle = calculateAngle(i)/2 - Math.PI/2;
     var acc = calculateAcc(angle);
     drawPendulum(100+Math.cos(angle)*50, 100-Math.sin(angle)*50);
-    console.log(i, angle, acc);
+    //console.log(i, angle, acc);
+    calculator.registerPoint(acc, i);
     i++;
 },100);
 
@@ -38,7 +38,6 @@ function stopStart(){
     "use strict";
     stop = !stop;
 }
-
 
 function calculateAngle(time){
     "use strict";
@@ -52,3 +51,28 @@ function calculateAcc(angle){
         y: G* Math.cos(angle),
     }
 }
+
+var calculator = {
+    previousXAcc: 1000,
+    //zeroYAcc: 1000,
+    higherPeriod: 0,
+    registerPoint: function(acc, time){
+        "use strict";
+        //TODO do the same thing for y
+        //TODO make a sort of avg
+        //half period
+        var x = Math.abs(acc.x);
+        //console.log(x);
+        if(x<this.previousXAcc)
+        {
+            if(!this.decrementingX) {
+                console.log('period', x, (time-this.zeroTime)*4);
+            }
+            this.decrementingX = true;
+            this.zeroTime = time;
+        }else{
+            this.decrementingX = false;
+        }
+        this.previousXAcc = x;
+    }
+};
