@@ -5,7 +5,7 @@ var DIM = 10;
 var INITIAL_POS = 100;
 var G = 9.81;
 var L = 500;
-var MAX_ANGLE = 30;
+var MAX_ANGLE = 90;
 var TEHTA0 = MAX_ANGLE/180*Math.PI;
 var PERIOD = 2*Math.PI*Math.sqrt(L/G)*(1+Math.pow(TEHTA0,2)/16);
 console.log('PERIOD', PERIOD);
@@ -93,10 +93,8 @@ var calculator = {
     },
     calculateL: function(period, theta){
         "use strict";
-        var l = Math.pow(period,2)*G;
-        //var l = (period/(2* Math.PI))^2*G;
-        //var l = period*G;
-        console.log('l', period, G, l);
+        var l =  G * period^2/(4* Math.pow(Math.PI,2) * Math.pow((1+Math.pow(theta,2)/16),2));
+        console.log('l', l);
     },
     calculateTheta: function(){
         "use strict";
