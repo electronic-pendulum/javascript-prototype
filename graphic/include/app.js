@@ -4,8 +4,8 @@
 var DIM = 10;
 var INITIAL_POS = 100;
 var G = 9.81;
-var L = 2.5;
-var MAX_ANGLE = 45;
+var L = 500;
+var MAX_ANGLE = 30;
 var TEHTA0 = MAX_ANGLE/180*Math.PI;
 var PERIOD = 2*Math.PI*Math.sqrt(L/G)*(1+Math.pow(TEHTA0,2)/16);
 console.log('PERIOD', PERIOD);
@@ -58,6 +58,8 @@ function calculateAcc(angle){
 
 var calculator = {
     previousXAcc: 1000,
+    minXAcc: 1000,
+    minYAcc: 1000,
     //zeroYAcc: 1000,
     higherPeriod: 0,
     registerPoint: function(acc, time){
@@ -67,26 +69,40 @@ var calculator = {
         //TODO make the entire cycle
         //half period
         var x = Math.abs(acc.x);
+        var y = Math.abs(acc.y);
         //console.log(x);
         if(x<this.previousXAcc)
         {
             if(!this.decrementingX) {
                 var period = (time-this.zeroTime-1)*4;
                 console.log('period', period);
-                this.calculateL(period)
+                var theta = this.calculateTheta();
+                this.calculateL(period, theta);
             }
+            this.minXAcc = x;
+            this.minYAcc = y;
             this.decrementingX = true;
             this.zeroTime = time;
         }else{
+            if(this.decrementingX) {
+                //var theta = this.calculateTheta();
+            }
             this.decrementingX = false;
         }
         this.previousXAcc = x;
     },
-    calculateL: function(period){
+    calculateL: function(period, theta){
         "use strict";
         var l = Math.pow(period,2)*G;
         //var l = (period/(2* Math.PI))^2*G;
         //var l = period*G;
         console.log('l', period, G, l);
+    },
+    calculateTheta: function(){
+        "use strict";
+        var angle = 90-Math.asin(this.minXAcc/G)/Math.PI*180;
+        console.log('theta by x', angle);
+        console.log('theta by y', 90-Math.acos(this.minYAcc/G)/Math.PI*180);
+        return angle;
     }
 };
