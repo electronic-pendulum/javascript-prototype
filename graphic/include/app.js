@@ -3,8 +3,11 @@
  */
 var DIM = 10;
 var INITIAL_POS = 100;
-var PERIOD = 200;
 var G = 9.81;
+var L = 500;
+var PERIOD = L/G;
+var ANGLE = 180;
+console.log('PERIOD', PERIOD);
 
 function drawPendulum(x, y) {
     "use strict";
@@ -28,11 +31,11 @@ window.setInterval(function(){
     if(stop) return;
     var angle = calculateAngle(i)/2 - Math.PI/2;
     var acc = calculateAcc(angle);
-    drawPendulum(100+Math.cos(angle)*50, 100-Math.sin(angle)*50);
+    drawPendulum(100+Math.cos(angle)*0.05*L, 100-Math.sin(angle)*0.05*L);
     //console.log(i, angle, acc);
     calculator.registerPoint(acc, i);
     i++;
-},100);
+},10);
 
 function stopStart(){
     "use strict";
@@ -41,7 +44,8 @@ function stopStart(){
 
 function calculateAngle(time){
     "use strict";
-    return Math.PI * Math.cos(2* Math.PI/PERIOD * time);
+    var theta0 = ANGLE/180*Math.PI;
+    return theta0 * Math.cos(2* Math.PI/PERIOD * time);
 }
 
 function calculateAcc(angle){
@@ -80,7 +84,8 @@ var calculator = {
     },
     calculateL: function(period){
         "use strict";
-        var l = (period/(2* Math.PI))^2*G;
+        //var l = (period/(2* Math.PI))^2*G;
+        var l = period*G;
         console.log('l', l);
     }
 };
