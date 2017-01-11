@@ -93,7 +93,8 @@ var calculator = {
     },
     calculateL: function(period, theta){
         "use strict";
-        var l =  G * period^2/(4* Math.pow(Math.PI,2) * Math.pow((1+Math.pow(theta,2)/16),2));
+        theta = theta/180*Math.PI;
+        var l =  G * Math.pow(period,2)/(4* Math.pow(Math.PI,2) * Math.pow((1+Math.pow(theta,2)/16),2));
         console.log('l', l);
     },
     calculateTheta: function(){
